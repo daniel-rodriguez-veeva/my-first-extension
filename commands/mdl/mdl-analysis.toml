@@ -1,0 +1,6 @@
+prompt = """
+Use the my-first-extension, use combination of tools vault_api_call, vault_query and vault_metadata to get the definition of the object or object given by the user  `{{args}}`.
+Lookup the definitions of all related objects or components
+Analyze all the MDL definitions to give an answer to the user.
+
+"""

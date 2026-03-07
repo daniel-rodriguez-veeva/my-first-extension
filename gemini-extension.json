@@ -1,0 +1,74 @@
+{
+  "name": "my-first-extension",
+  "version": "1.0.0",
+  "contextFileName": "GEMINI.md",
+  "description": "My first TypeScript extension for Gemini CLI",
+  "mcpServers": {
+    "my-server": {
+      "command": "node",
+      "args": ["${extensionPath}${/}dist${/}index.js"],
+      "cwd": "${extensionPath}",
+      "env": {
+        "VAULT_DNS": "${env:VAULT_DNS}",
+        "VAULT_USERNAME": "${env:VAULT_USERNAME}",
+        "VAULT_PASSWORD": "${env:VAULT_PASSWORD}",
+        "VAULT_SESSION_ID": "${env:VAULT_SESSION_ID}",
+        "VAULT_AUTH_TYPE": "${env:VAULT_AUTH_TYPE}",
+        "VAULT_OAUTH_CLIENT_ID": "${env:VAULT_OAUTH_CLIENT_ID}",
+        "VAULT_OAUTH_IDP_URL": "${env:VAULT_OAUTH_IDP_URL}",
+        "VAULT_OIDC_PROFILE_ID": "${env:VAULT_OIDC_PROFILE_ID}",
+        "VAULT_OAUTH_REDIRECT_URI": "${env:VAULT_OAUTH_REDIRECT_URI}",
+        "VAULT_API_CLIENT_ID": "${env:VAULT_API_CLIENT_ID}"
+      }
+    }
+  },
+  "settings": [
+    {
+      "name": "Vault DNS",
+      "description": "The DNS of your Veeva Vault (e.g., myvault.veevavault.com)",
+      "envVar": "VAULT_DNS",
+      "required": true
+    },
+    {
+      "name": "Username",
+      "description": "Your Veeva Vault username",
+      "envVar": "VAULT_USERNAME"
+    },
+    {
+      "name": "Password",
+      "description": "Your Veeva Vault password",
+      "envVar": "VAULT_PASSWORD",
+      "sensitive": true
+    },
+    {
+      "name": "Auth Type",
+      "description": "Authentication type (BASIC or OAUTH). Defaults to BASIC.",
+      "envVar": "VAULT_AUTH_TYPE"
+    },
+    {
+      "name": "OAuth Client ID",
+      "description": "Client ID for OAuth authentication",
+      "envVar": "VAULT_OAUTH_CLIENT_ID"
+    },
+    {
+      "name": "OAuth IdP URL",
+      "description": "Identity Provider URL for OAuth",
+      "envVar": "VAULT_OAUTH_IDP_URL"
+    },
+    {
+      "name": "OIDC Profile ID",
+      "description": "OIDC Profile ID for Vault Session Exchange",
+      "envVar": "VAULT_OIDC_PROFILE_ID"
+    },
+    {
+      "name": "OAuth Redirect URI",
+      "description": "Redirect URI for OAuth (e.g. http://localhost:8080/login/callback)",
+      "envVar": "VAULT_OAUTH_REDIRECT_URI"
+    },
+    {
+      "name": "Vault API Client ID",
+      "description": "The Client ID for Vault API calls (defaults to 'VeevaVaultApi')",
+      "envVar": "VAULT_API_CLIENT_ID"
+    }
+  ]
+}
