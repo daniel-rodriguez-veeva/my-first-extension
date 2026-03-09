@@ -6,7 +6,7 @@
   "mcpServers": {
     "my-server": {
       "command": "node",
-      "args": ["${extensionPath}${/}dist${/}index.js"],
+      "args": ["${extensionPath}${/}scripts${/}launcher.js"],
       "cwd": "${extensionPath}",
       "env": {
         "VAULT_DNS": "${env:VAULT_DNS}",

@@ -7,13 +7,14 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js",
     "copy-assets": "cp gemini-extension.json dist/ && cp -r skills dist/ && cp -r commands dist/ && cp GEMINI.md dist/ && cp README.md dist/",
-    "distribute": "npm run build && npm run copy-assets && sed -i '' 's|\\${extensionPath}\\${\\/\\}dist\\${\\/\\}index.js|\\${extensionPath}\\${\\/\\}index.js|g' dist/gemini-extension.json",
+    "distribute": "npm run build && npm run copy-assets && sed -i '' 's|\\${extensionPath}\\${\\/\\}scripts\\${\\/\\}launcher.js|\\${extensionPath}\\${\\/\\}index.js|g' dist/gemini-extension.json",
     "watch": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --watch",
     "prestart": "npm run build",
     "test": "vitest run"
   },
   "files": [
     "dist",
+    "scripts",
     "gemini-extension.json",
     "skills",
     "commands",
