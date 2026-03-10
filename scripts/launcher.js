@@ -11,22 +11,30 @@ import { existsSync } from 'node:fs';
 import { spawn, spawnSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import logger from './logger';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const extensionPath = join(__dirname, '..');
 const distPath = join(extensionPath, 'dist', 'index.js');
 const nodeModulesPath = join(extensionPath, 'node_modules');
 
+logger.debug({__dirname}, " is the __dirname");
+logger.debug({extensionPath}, " is the extensionPath");
+logger.debug({distPath}, " is the distPath");
+logger.debug({nodeModulesPath}, " is the nodeModulesPath");
+
+
+
 /**
  * Ensures the extension is built locally.
  */
 function ensureBuild() {
   if (!existsSync(distPath)) {
-    process.stderr.write('MCP server entry point not found. Initializing local build...\n');
+    logger.debug('MCP server entry point not found. Initializing local build...\n');
     
     // 1. Install dependencies if node_modules is missing
     if (!existsSync(nodeModulesPath)) {
-      process.stderr.write('Installing dependencies (npm install)...\n');
+      logger.debug('Installing dependencies (npm install)...\n');
       const installResult = spawnSync('npm', ['install'], { 
         cwd: extensionPath, 
         stdio: 'inherit',
@@ -34,13 +42,13 @@ function ensureBuild() {
       });
       
       if (installResult.status !== 0) {
-        process.stderr.write('Failed to install dependencies.\n');
+        logger.debug('Failed to install dependencies.\n');
         process.exit(1);
       }
     }
     
     // 2. Run the build script defined in package.json
-    process.stderr.write('Building extension (npm run build)...\n');
+    logger.debug('Building extension (npm run build)...\n');
     const buildResult = spawnSync('npm', ['run', 'build'], { 
       cwd: extensionPath, 
       stdio: 'inherit',
@@ -48,11 +56,11 @@ function ensureBuild() {
     });
     
     if (buildResult.status !== 0) {
-      process.stderr.write('Failed to build extension.\n');
+      logger.debug('Failed to build extension.\n');
       process.exit(1);
     }
     
-    process.stderr.write('Build completed successfully!\n');
+    logger.debug('Build completed successfully!\n');
   }
 }
 
@@ -73,7 +81,7 @@ function startServer() {
   });
 
   server.on('error', (err) => {
-    process.stderr.write(`Failed to start MCP server: ${err.message}\n`);
+    logger.debug(`Failed to start MCP server: ${err.message}\n`);
     process.exit(1);
   });
 }
