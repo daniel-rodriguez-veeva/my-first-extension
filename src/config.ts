@@ -3,10 +3,16 @@ import path from "path";
 import os from "os";
 import { fileURLToPath } from "url";
 import defaults from "./defaults.json";
+import logger from "./tools/logger";
+
 
 // In ES modules, __dirname is not available by default.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+
+logger.debug({__filename}, " is __filename in config.ts");
+logger.debug({__dirname}, " is __dirname in config.ts");
 
 // Clear all VAULT_ placeholders that might block dotenv from loading.
 // Gemini CLI passes these if they are defined in gemini-extension.json but not set in the host environment.
@@ -24,6 +30,7 @@ dotenv.config({ quiet: true } as any);
 // 2. Try to load from the global Gemini extensions directory ('link' mode).
 // When using 'gemini extensions link', the code runs from source but settings are in ~/.gemini/extensions/my-first-extension/.env
 const geminiExtensionEnv = path.join(os.homedir(), ".gemini", "extensions", "my-first-extension", ".env");
+logger.debug({geminiExtensionEnv}, "is geminiExtensionEnv in config.ts")
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 dotenv.config({ path: geminiExtensionEnv, quiet: true } as any);
 
